@@ -127,6 +127,36 @@ def question_6():
     plt.show()
     return
 
+def question_7():
+    f = open("q7_answer.txt", "w")
+
+    f.write("Show 2 more scatterplots that are interesting do you. Discuss what you see.")
+    data.plot(kind="scatter", x="horsepower", y="mpg", figsize=(5, 5))
+
+    f.write("Thang note.......")
+
+
+    data.plot(kind="scatter", x="displacement", y="horsepower", figsize=(5, 5))
+
+    f.write("> According to wiki, displacement or engine displacement is the measure of the cylinder volume. I thought that if the displacement rose, the horsepower (how quickly the force is produced) would increase, so the displacement of the engine would be positively correlated with the horsepower of the car. As my expectation, the correlation is depicted precisely on the above scatter plot.")
+
+def question_8():
+    f = open("q8_answer.txt", "w")
+
+    f.write("Plot a time series for all the companies that show how many new cars they introduces during each year. Do you see some interesting trends? (Hint: data.car name.str.split()[0] returns a vector of the first word of car name column.)")
+
+    data['company'] = data['car_name'].str.split().str.get(0)
+    counts = data.groupby(['model', 'company'])['car_name'].count()
+    fig, ax = plt.subplots(figsize=(10,6))
+    fig.legend(loc='upper right')
+    counts.unstack().plot(ax=ax)
+    ax.set_title('Number of new cars introduced by company and year')
+    ax.set_xlabel('Year')
+    ax.set_ylabel('Number of new cars introduced')
+    plt.legend(loc='best', bbox_to_anchor=(1, 1))
+    plt.show()
+    
+
 def question_9():
     '''
     Calculate the pairwise correlation, and draw the heatmap with Matplotlib. Do you see some
