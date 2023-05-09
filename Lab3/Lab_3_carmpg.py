@@ -36,6 +36,38 @@ plt.rcParams
 rcDef = plt.rcParams
 plt.rcParams.update(plt.rcParamsDefault)
 
+def question_1():
+    '''
+    How many cars and how many attributes are in the data set
+    '''
+
+    print("Number of cars: ", data.shape[0])
+    print("Number of attributes: ", data.shape[1])
+
+def question_2():
+    f = open("q2_answer.txt", "w")
+
+    f.write("How many distinct car companies are represented in the data set?")
+    data["company"] = data["car_name"].str.split(" ").str[0]
+    f.write("Number of distinct car companies: ", data["company"].nunique())
+
+    f.write("What is the name of the car with the best MPG? ")
+    f.write(data.loc[data["mpg"] == data["mpg"].max(), ["car_name", "mpg"]])
+
+    f.write("What car company produced the most 8-cylinder cars? ")
+    count_cylinder_df = data.groupby(["company", "cylinders"])[["car_name"]].count().reset_index()
+    eight_cylinders_df = count_cylinder_df[count_cylinder_df["cylinders"] == 8.0]
+    f.write(eight_cylinders_df[eight_cylinders_df["car_name"] == eight_cylinders_df["car_name"].max()])
+
+    f.write("What are the names of 3-cylinder cars? ")
+    f.write(data.loc[data["cylinders"] == 3.0, ["cylinders", "car_name"]])
+
+    f.write("Do some internet search that can tell you about the history and popularity of those 3-cylinder cars.")
+    f.write("> The cars listed in the given data appear to have 2 or 3 rotor Wankel rotary engines which produce power similar to a larger 4 or 6 cylinder engine, but with fewer moving parts. These engines were used by Mazda in their vehicles during the 1970s and 1980s.")
+    f.write("> At that time, Mazda was the only major automaker producing cars with Wankel engines. The 1978 Mazda RX-7, for example, was one of the most popular sports cars of its time and is still highly sought after by collectors today.")
+
+    f.close()
+
 def question_3():
     '''
     What is the range, mean, and standard deviation of each attribute? Pay attention to potential missing values.
@@ -121,4 +153,4 @@ def question_9():
 
     return
 
-question_6()
+question_2()
