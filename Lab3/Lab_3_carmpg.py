@@ -90,6 +90,19 @@ def question_3():
     summary.to_csv('q3_summary.csv')
     return
 
+def question_5():
+    f = open("q5_answer.txt", "w")
+    f.write("Plot a scatterplot of weight vs. MPG attributes. What do you conclude about the relationship between the attributes? What is the correlation coefficient between the 2 attributes?")
+    data.plot(kind="scatter", x="weight", y="mpg", figsize=(5, 5))
+    plt.savefig('q5_scatter.png',bbox_inches='tight')
+
+    f.write("> Weight and MPG are negatively correlated. As weight increases, MPG decreases.")
+
+    f.write("Correlation coefficient between the 2 attributes: ", data[["weight", "mpg"]].corr()[["weight"]].iloc[-1].to_list()[0])
+
+
+
+
 def question_6():
     '''
     Plot a scatterplot of year vs. cylinders attributes. Add a small random noise to the values to make
